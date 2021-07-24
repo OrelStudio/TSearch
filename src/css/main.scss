@@ -1,0 +1,30 @@
+@import '~antd/dist/antd.css';
+@import '~react-dropdown/style.css';
+@import './colors';
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $backgroundColor;
+}
+.logo-area {
+    font-family: 'Lobster', cursive;
+    font-size: 70px;
+}
+.content {
+    width: 150px;
+    .main-wrapper {
+        margin-right: 120px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+}
+.select{
+    min-width: 320px;
+}
+.ant-btn-primary {
+    margin-left: 13px;
+}

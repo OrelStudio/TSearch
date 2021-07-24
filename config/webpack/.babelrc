@@ -1,0 +1,34 @@
+{
+  "presets": [
+    "@babel/preset-env",
+    "@babel/preset-react"
+  ],
+  "compact": true,
+  "comments": true,
+  "env": {
+    "development": {
+      "presets": [
+        "@babel/preset-env",
+        ["@babel/preset-react", {"development": true}]
+      ],
+      "plugins": [
+        "react-hot-loader/babel",
+        [
+          "@babel/plugin-transform-runtime",
+          {
+            "absoluteRuntime": false,
+            "corejs": false,
+            "helpers": true,
+            "regenerator": true,
+            "useESModules": true
+          }
+        ]
+      ]
+    },
+    "production": {
+      "plugins": [
+        "@babel/runtime"
+      ]
+    }
+  }
+}
