@@ -22,10 +22,10 @@ class Torrent {
         Cons.log('onEnableProvider', `Enabled ${provider.value}`)
     }
     static onDisableProvider = (event, provider) => {
-        Cons.log('onDisableProvider', `Disabled ${provider}`)
+        Cons.log('onDisableProvider', `Disabled ${provider.value}`)
     }
     static onDisableAllProviders = (event, arg) => {
-        Cons.log('onDisableProvider', `Disabled All`)
+        Cons.log('onDisableAllProvider', `Disabled All`)
     }
 }
 

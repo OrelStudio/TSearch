@@ -14,7 +14,13 @@ const Selector = props => {
         ipcRenderer.on('torrent:enable:response', Torrent.onEnableProvider)
         ipcRenderer.on('torrent:disable:response', Torrent.onDisableProvider)
         ipcRenderer.on('torrent:disable:all:response', Torrent.onDisableAllProviders)
-    }, [])
+
+        return () => {
+            ipcRenderer.removeListener('torrent:enable:response', Torrent.onEnableProvider)
+            ipcRenderer.removeListener('torrent:disable:response', Torrent.onDisableProvider)
+            ipcRenderer.removeListener('torrent:disable:all:response', Torrent.onDisableAllProviders)
+        }
+    })
 
     const options = [
         { value: 'Torrent9', label: 'Torrent9' },
@@ -29,7 +35,6 @@ const Selector = props => {
         { value: 'Eztv', label: 'Eztv' }
     ];
 
-
     const checkDifference = (firstArray, secondArray) => {
         let isAdded = true
         let res = firstArray.filter(provider => !secondArray.includes(provider))
@@ -37,7 +42,13 @@ const Selector = props => {
             isAdded = false
             res = secondArray.filter(provider => !firstArray.includes(provider))
         }
-        isAdded ? Torrent.enableProvider(res[0]) : Torrent.disableProvider(res[0])
+        if(isAdded) {
+            Torrent.enableProvider(res[0])
+        } else if(res.length > 1) {
+            Torrent.disableAllProviders()
+        } else {
+            Torrent.disableProvider(res[0])
+        }
     }
 
     const handleChange = value => {

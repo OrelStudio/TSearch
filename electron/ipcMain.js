@@ -14,19 +14,18 @@ const torrentRequest = async(event) => {
 }
 
 const enableProvider = (event, provider) => {
-    console.log(provider);
-    // TorrentSearchApi.enableProvider(provider)
+    TorrentSearchApi.enableProvider(provider.value)
     event.reply('torrent:enable:response', provider)
 }
 
 const disableProvider = (event, provider) => {
-    // TorrentSearchApi.disableProvider(provider)
+    TorrentSearchApi.disableProvider(provider.value)
     event.reply('torrent:disable:response', provider)
 }
 
 const disableAllProviders = (event) => {
-    // TorrentSearchApi.disableAllProviders()
-    event.reply('torrent:disable:all:response', provider)
+    TorrentSearchApi.disableAllProviders()
+    event.reply('torrent:disable:all:response', 'torrent:disable:all:response')
 }
 
 module.exports = {

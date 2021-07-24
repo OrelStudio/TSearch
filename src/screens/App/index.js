@@ -28,11 +28,11 @@ const App = props => {
 
   return (
     <>
-        <div className="logo-area">{'TSearch'}</div>
-        <div className="content">
-            <div className="main-wrapper">
+        <div className='logo-area'>{'TSearch'}</div>
+        <div className='content'>
+            <div className='main-wrapper'>
                 <Selector/>
-                <Button onClick={test} type="primary">{'Let\'s Go!'}</Button>
+                <Button onClick={test} type='primary'>{'Let\'s Go!'}</Button>
             </div>
         </div>
     </>
