@@ -19,6 +19,9 @@ module.exports = merge(config, {
       // 'webpack/hot/dev-server'
     ]
   },
+  output: {
+    publicPath: '/',
+  },
   module: {
     rules: [
       {

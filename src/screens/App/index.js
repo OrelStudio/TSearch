@@ -4,38 +4,27 @@ import Logger from '../../logger'
 import { ipcRenderer } from 'electron'
 import { Button } from 'antd';
 import Selector from '../../components/Select'
-import Torrent from '../../components/Select/torrent.js'
+import Search from '../../components/Search'
 import '../../css/main.scss'
+import Torrent from '../../ipcRenderer/torrent.js'
 
 const App = props => {
-  useEffect(() => {
-    const onTorrentRequest = (event, arg) => {
-        console.log(`sdfsdf: ${JSON.stringify(arg)}`)
-    }
-
-    ipcRenderer.on('torrent:response', onTorrentRequest)
-
-    return () => {
-        ipcRenderer.removeListener('torrent:response', onTorrentRequest)
-    }
-  }, [])
-
-  const cons = new Logger('test')
-
-  const test = () => {
-      Torrent.getData()
-  }
-
   return (
-    <>
-        <div className="logo-area">{'TSearch'}</div>
-        <div className="content">
-            <div className="main-wrapper">
-                <Selector/>
-                <Button onClick={test} type="primary">{'Let\'s Go!'}</Button>
-            </div>
+    <div className={'main-page'}>
+      <div>
+        <div className='logo-area'>
+          <span>{'TSearch'}</span>
         </div>
-    </>
+        <div className='content'>
+          <div className='main-wrapper'>
+            <Selector/>
+            <div className="search-wrapper">
+              <Search />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   )
 }
 

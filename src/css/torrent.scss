@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
+@import './colors';
+
+.torrent-main {
+  height: calc(100% - 60px);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  #torrent-input {
+    max-width: 40px;
+  }
+}
+.download-wrapper {
+  margin-top: 80px;
+  min-width: 30%;
+  margin-left: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: fit-content;
+}
+.download-title {
+  font-family: 'Oswald', sans-serif;
+  font-size: 30px;
+  color: $torrentTitleColor;
+}
+.download-section {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 30px;
+}
+.info-container {
+  width: auto;
+  height: fit-content;
+  background-color: $torrentInfoColor;
+  font-size: 20px;
+  font-family: 'Roboto Condensed', sans-serif;
+  display: flex;
+  flex-direction: column;
+  padding: 5px 13px 5px 13px;
+  margin-top: 13%;
+  overflow-wrap: break-word;
+  border-radius: 10px;
+}

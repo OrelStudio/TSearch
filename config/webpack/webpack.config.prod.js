@@ -7,17 +7,20 @@ const merge = require('webpack-merge')
 const sass = require('sass')
 const lessToJs = require('less-vars-to-js')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const CleanWebpackPlugin = require('clean-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const CompressionPlugin = require('compression-webpack-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 // const LodashModuleReplacementPlugin = require('lodash-webpack-plugin')
 const webpack = require('webpack')
 
+const config = require('./webpack.config.common')
+
 module.exports = merge(config, {
   output: {
     filename: '[name].[contenthash].js',
-    chunkFilename: '[name].[chunkhash].js'
+    chunkFilename: '[name].[chunkhash].js',
+    publicPath: './'
   },
   mode: 'production',
   module: {
@@ -37,23 +40,20 @@ module.exports = merge(config, {
           {
             loader: 'less-loader',
             options: {
-              modifyVars: lessToJs(fs.readFileSync(path.join(__dirname, './src/css/antd-overrides.less'), 'utf8')),
+              // modifyVars: lessToJs(fs.readFileSync(path.join(__dirname, './src/css/antd-overrides.less'), 'utf8')),
               javascriptEnabled: true
             }
           }
         ]
       },
       {
-        test: /\.scss$|\.css$/,
+        test: /\.(scss|css)$/,
         exclude: /node_modules/,
+        // include: 'node_modules/codemirror-graphql',
         use: [
           MiniCssExtractPlugin.loader,
           {
             loader: 'css-loader',
-            options: {
-              minimize: true,
-              sourceMap: false
-            }
           },
           {
             loader: 'sass-loader',
@@ -69,7 +69,9 @@ module.exports = merge(config, {
     new webpack.optimize.ModuleConcatenationPlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.HashedModuleIdsPlugin(),
-    new CleanWebpackPlugin('dist'),
+    new CleanWebpackPlugin({
+      cleanAfterEveryBuildPatterns: ['dist']
+    }),
     // new webpack.NamedModulesPlugin(),
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment/),
     // new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en|fr/),
@@ -98,6 +100,7 @@ module.exports = merge(config, {
     }
   },
   devtool: false,
+  mode: 'production',
   optimization: {
     runtimeChunk: false,
     minimize: true,
@@ -115,7 +118,7 @@ module.exports = merge(config, {
         }
       }),
       new CompressionPlugin({
-        asset: '[path].gz[query]',
+        filename: '[path].gz[query]',
         algorithm: 'gzip',
         test: /\.js$|\.css$|\.html$/,
         threshold: 10240,
