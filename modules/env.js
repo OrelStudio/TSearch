@@ -2,7 +2,7 @@
 
 const lodash = require('lodash')
 
-const DEFAULT_ENV = 'development'
+const DEFAULT_ENV = 'production'
 
 const ENV = process.env['NODE_ENV'] || DEFAULT_ENV
 

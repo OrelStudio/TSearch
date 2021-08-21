@@ -18,7 +18,6 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    publicPath: '/',
     filename: '[name].js',
     chunkFilename: '[name].bundle.js',
     sourcePrefix: '\t'
@@ -28,14 +27,15 @@ module.exports = {
       {
         test: /\.m?js$/,
         use: [
-          'thread-loader',
+          // 'thread-loader',
           {
             loader: 'babel-loader',
             options: {
-              ...JSON.parse(fs.readFileSync(path.resolve(__dirname, './.babelrc')))
+              ...JSON.parse(fs.readFileSync(path.resolve(__dirname, './.babelrc'))),
               // babelrc: './.babelrc',
-              // cwd: 'babelrc',
-              // root: path.resolve(__dirname, '.')
+              babelrc: true,
+              cwd: 'babelrc',
+              root: path.resolve(__dirname, '.')
             }
           }
         ],

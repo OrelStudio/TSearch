@@ -26,8 +26,15 @@
       ]
     },
     "production": {
+      "presets": [
+        ["@babel/preset-env", {
+          "useBuiltIns": false
+        }],
+        ["@babel/preset-react", {"development": false}]
+      ],
       "plugins": [
-        "@babel/runtime"
+        "@babel/plugin-transform-runtime"
+
       ]
     }
   }

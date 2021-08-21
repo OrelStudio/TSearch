@@ -1,0 +1,72 @@
+@import './colors';
+@import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap');
+
+.results-main {
+  height: calc(100% - 60px);
+  width: 100%;
+  display: flex;
+  overflow: auto;
+  flex-direction: column;
+}
+.results-search {
+  display: flex;
+  flex-direction: row;
+  margin-top: 20px;
+  width: 45%;
+  align-items: center;
+  .select {
+    min-width: 70%;
+  }
+}
+.results-search * {
+  margin-left: 10px;
+}
+.results-items {
+  flex-direction: column;
+  margin-top: 60px;
+  margin-left: 20px;
+}
+.item {
+  height: auto;
+  width: 40%;
+  background-color: $itemColor;
+  overflow-wrap: break-word;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  box-shadow: -5px -3px 5px rgba(130, 130, 130, 0.1), 3px 5px 12px rgba(0, 0, 0, 0.1);
+}
+.item:hover {
+  background-color: $itemHoverColor;
+}
+.item:active {
+  background-color: $itemActiveColor;
+}
+.item-text {
+  color: $itemTextColor;
+  height: 100%;
+  width: 100%;
+  padding: 2.5px 0 9px 15px;
+}
+.item-text:hover {
+  color: $itemTextHoverColor;
+}
+.item-text:active {
+  color: $itemTextActiveColor;
+}
+.item-title {
+  font-size: 20px;
+  margin-left: 18px;
+  font-family: 'Oswald', sans-serif;
+}
+.item-info {
+  display: flex;
+  flex-direction: row;
+  font-size: 17px;
+  margin-left: 18px;
+  overflow: hidden;
+  font-family: 'Roboto Condensed', sans-serif;
+}
+.item-info * {
+  margin-right: 10px;
+}
