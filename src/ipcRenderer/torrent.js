@@ -4,6 +4,7 @@ const Cons = new Logger('Torrent')
 
 let canSearch = false
 let selectedProviders = null
+let queue = []
 
 class Torrent {
   static getData = (value) => {
@@ -49,8 +50,15 @@ class Torrent {
   static setSelectedProviders = providers => {
     selectedProviders = providers
   }
-  static getSelectedProviders = providers => {
+  static getSelectedProviders = () => {
     return selectedProviders
+  }
+
+  static setQueue = value => {
+    queue = value
+  }
+  static getQueue = () => {
+    return queue
   }
 }
 

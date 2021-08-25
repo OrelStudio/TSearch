@@ -5,14 +5,16 @@ const Logger = require('../src/logger/electronCon.js')
 
 const Cons = new Logger('electron-startpoint')
 
-const startWindow = (win) => {
+let win
+
+const startWindow = () => {
   Cons.log('startWindow', 'Creating new window...')
   win = new BrowserWindow({
     width: 1200,
     height: 600,
     minWidth: 900,
     minHeight: 500,
-    icon: path.resolve(__dirname, '../resources/icon.ico'),
+    icon: path.resolve(__dirname, '../resources/icon.png'),
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
@@ -27,6 +29,10 @@ const startWindow = (win) => {
   })
 }
 
+const sendToRenderer = (channel, arg) => {
+  win.webContents.send(channel, arg)
+}
+
 const platformCheck = (app) => {
   if (process.platform !== 'darwin') {
     app.quit()
@@ -36,5 +42,6 @@ const platformCheck = (app) => {
 
 module.exports = {
   startWindow: startWindow,
-  platformCheck: platformCheck
+  platformCheck: platformCheck,
+  sendToRenderer
 }

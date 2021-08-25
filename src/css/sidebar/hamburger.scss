@@ -1,0 +1,41 @@
+@import '../colors';
+$linesHeight: 4px;
+$linesWidth: 33px;
+
+.hamburger {
+  margin-right: 20px;
+  margin-top: 10px;
+  z-index: 10;
+  right: 0;
+  height: fit-content;
+  width: fit-content;
+}
+.hamburger * {
+  margin-bottom: 6px;
+}
+.hamburger-line {
+  height: $linesHeight;
+  width: $linesWidth;
+  background-color: $hamburgerLinesColor;
+  border-radius: 15px;
+}
+// open
+.first-open {
+  transform: rotate(45deg) translate(7px, 7px);
+}
+.middle-open {
+  opacity: 0;
+}
+.last-open {
+  transform: rotate(-45deg) translate(7px, -7px);
+}
+// close
+.first-close {
+  transform: rotate(0deg) translate(0px, 0px);
+}
+.middle-close {
+  opacity: 1;
+}
+.last-close {
+  transform: rotate(0deg) translate(0px, 0px);
+}

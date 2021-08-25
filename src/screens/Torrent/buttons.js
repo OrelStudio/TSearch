@@ -5,16 +5,16 @@ import Torrent from '../../ipcRenderer/torrent.js'
 
 const DownloadButtons = props => {
   const handleDownload = () => {
-    Torrent.download(props.magnet)
+    Torrent.download({magnet: props.magnet, title: props.title, size: props.size})
   }
 
   return (
     <>
-      <Button onClick={handleDownload} type='primary' icon={<DownloadOutlined />} size={'large'}>
-        <span>Download</span>
+      <Button onClick={handleDownload} type={'primary'} icon={<DownloadOutlined />} size={'large'}>
+        <span>{'Download'}</span>
       </Button>
       <Button type='primary' icon={<LinkOutlined />} size={'large'}>
-        <span>Magnet</span>
+        <span>{'Magnet'}</span>
       </Button>
     </>
   )
