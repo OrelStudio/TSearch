@@ -1,0 +1,31 @@
+@import '../colors';
+
+.sidebar-wrapper {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  width: 170px;
+  right: 0;
+  height: 100%;
+  background-color: $sidebarColor;
+}
+.sidebar-hamburger {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  height: fit-content;
+}
+.sidebar-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-right: 10px;
+  height: fit-content;
+}
+.content-wrapper {
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 70%;
+}

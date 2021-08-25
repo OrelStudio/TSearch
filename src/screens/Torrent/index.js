@@ -49,7 +49,7 @@ const TorrentPage = props => {
     <Navigation tabs={tabs} current={current} />
       {loaded ? (
         <>
-          <div className='results-search'>
+          <div className={'results-search'}>
             <Selector />
             <Search id={'torrent-input'}/>
           </div>

@@ -1,0 +1,73 @@
+@import '../colors';
+
+.queue::-webkit-scrollbar {
+  width: 2px;
+  border-radius: 5px;
+}
+.queue::-webkit-scrollbar-thumb {
+  // background-color: rgb(255, 255, 255);
+  width: 5px;
+}
+.queue-download {
+  display: flex;
+  align-items: center;
+}
+.queue-content {
+  display: flex;
+  align-items: center;
+  height: fit-content;
+  padding: 8px 8px 6px 8px;
+  border-radius: 5px;
+  margin-left: 40px;
+}
+.queue-content:hover {
+  background-color: $sidebarItemsBackground;
+}
+.icon-text {
+  overflow: hidden;
+  font-size: 20px;
+  margin-right: 20px;
+  padding-bottom: 5px;
+  color: rgb(255, 255, 255)
+}
+.queue-title {
+  display: flex;
+  font-size: 20px;
+  font-family: 'Oswald', sans-serif;
+}
+.queue-desc {
+  width: fit-content;
+  font-family: 'Roboto Condensed', sans-serif;
+}
+.queue-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.queue {
+  height: 130px;
+  width: max-content;
+  padding: 3px 10px 3px 10px;
+  border-radius: 5px;
+  overflow: auto;
+  background-color: $sidebarItemsBackground;
+}
+.arrow-right {
+  width: 0;
+  height: 0;
+  border-top: 9px solid transparent;
+  border-bottom: 9px solid transparent;
+  border-left: 9px solid $sidebarItemsBackground;
+  width: fit-content;
+}
+.queue-action-buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  padding: 0 5px 0 5px;
+}
+.queue-empty {
+  padding-right: 10px;
+}

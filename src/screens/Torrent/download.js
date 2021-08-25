@@ -6,12 +6,12 @@ const DownloadSection = props => {
   const torrent = props.torrent
 
   return (
-    <div className='download-wrapper'>
-      <div className='download-title'>
+    <div className={'download-wrapper'}>
+      <div className={'download-title'}>
         <span>{torrent.title}</span>
       </div>
-      <div className='download-section'>
-        <DownloadButtons magnet={props.magnet} />
+      <div className={'download-section'}>
+        <DownloadButtons magnet={props.magnet} title={torrent.title} size={torrent.size} />
       </div>
       <Info torrent={torrent} />
     </div>
