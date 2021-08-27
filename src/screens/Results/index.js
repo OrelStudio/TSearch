@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useMemo } from 'react'
 import { useParams } from 'react-router-dom'
 import Selector from '../../components/Select'
 import Search from '../../components/Search'
@@ -10,7 +10,7 @@ const Results = props => {
   const { value } = useParams()
   let Content = resultsContent(value)
 
-  const tabs = [{'path': '/', 'name': 'Home'}]
+  const tabs = useMemo(() => [{'path': '/', 'name': 'Home'}], [value])
 
   return (
     <div className={'results-main'}>
