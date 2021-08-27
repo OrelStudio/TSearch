@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { ipcRenderer } from 'electron'
 import Torrent from '../../ipcRenderer/torrent.js'
 import { Redirect } from 'react-router-dom'
-import SearchButtons from './Search'
+import SearchButtons from './search'
 
 import '../../css/main.scss'
 

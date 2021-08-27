@@ -65,7 +65,7 @@ const Queue = props => {
   return (
     <>
       <div className={'queue-container'} >
-        <motion.div className={'queue'} animate={{ opacity: props.isInside ? 1 : 0, display: props.isInside ? 'block' : 'none' }} transition={{ duration: 0.2 }}>
+        <div className={'queue'}>
           {queue.length === 0 ? (
             <div className={'queue-empty'}>
               <h3>{'Download queue is empty'}</h3>
@@ -74,8 +74,8 @@ const Queue = props => {
             </div>
           ) : null}
           {queue.map((item, i) => <QueueItem item={item} key={i} />)}
-        </motion.div>
-        <motion.div className={'arrow-right'} animate={{ opacity: props.isInside ? 1 : 0, display: props.isInside ? 'block' : 'none' }} transition={{ duration: 0.2 }} />
+        </div>
+        <div className={'arrow-right'} />
       </div>
     </>
   )

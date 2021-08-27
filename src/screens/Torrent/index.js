@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useMemo } from 'react'
 import { useParams } from 'react-router-dom'
 import queryString from 'query-string'
 import { ipcRenderer } from 'electron'
@@ -17,7 +17,7 @@ const TorrentPage = props => {
   const torrentObj = queryString.parse(torrent)
   const { searchValue } = useParams()
 
-  const tabs = [{'path': '/', 'name': 'Home'}, {'path': `/search/${searchValue}`, 'name': searchValue}]
+  const tabs = useMemo(() => [{'path': '/', 'name': 'Home'}, {'path': `/search/${searchValue}`, 'name': searchValue}], [searchValue])
   const current = torrentObj.title
 
   const [magnet, setMagnet] = useState('')
