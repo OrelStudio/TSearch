@@ -20,7 +20,7 @@ const ResultsItem = props => {
             {torrent.title}
           </span>
         </div>
-          <div className={'item-info'}>
+        <div className={'item-info'}>
           <div>{`size: ${torrent.size},`}</div>
           <div>{`provider: ${torrent.provider},`}</div>
           <div>{`seeds: ${torrent.seeds},`}</div>

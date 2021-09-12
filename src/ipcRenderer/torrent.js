@@ -5,10 +5,14 @@ const Cons = new Logger('Torrent')
 let canSearch = false
 let selectedProviders = null
 let queue = []
+let navigation = []
 
 class Torrent {
   static getData = (value) => {
     return ipcRenderer.send('torrent:request', value)
+  }
+  static getEnabledProviders = () => {
+    return ipcRenderer.send('torrent:providers:request', 'torrent:providers:request')
   }
   static getMagnet = (torrent) => {
     return ipcRenderer.send('magnet:request', torrent)
@@ -59,6 +63,13 @@ class Torrent {
   }
   static getQueue = () => {
     return queue
+  }
+
+  static setNavigation = value => {
+    navigation = value
+  }
+  static getNavigation = () => {
+    return navigation
   }
 }
 
