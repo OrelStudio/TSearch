@@ -6,10 +6,14 @@ const Logger = require('../src/logger/electronCon.js')
 const { getHistory, addItem } = require('./history')
 
 const addToHistory = (value) => {
-  const currentDate = Date.now()
+  const date = new Date()
+  const currentDate = `${date.getDay()}/${date.getMonth()}/${date.getFullYear()}, ${date.getHours()}:${date.getMinutes()}`
   const data = [{
     value,
-    'date': currentDate
+    'date': currentDate,
+    'providers': TorrentSearchApi.getActiveProviders().map((provider) =>
+      ({'value': provider.name, 'label': provider.name})
+    )
   }]
 
   addItem(data, 'search').then((result) => {
@@ -31,8 +35,13 @@ const torrentRequest = async(event, value) => {
 const magnetRequest = async(event, torrent) => {
   Cons.log('Magnet', `requesting magnet for ${torrent.title}`)
   const magnet = await TorrentSearchApi.getMagnet(torrent)
-  // await TorrentSearchApi.downloadTorrent(torrent, path.join(__dirname, '../../torrents'))
   event.reply('magnet:response', magnet)
+}
+
+const getEnabledProviders = (event, args) => {
+  event.reply('torrent:providers:response', TorrentSearchApi.getActiveProviders().map((provider) =>
+    ({'value': provider.name, 'label': provider.name})
+  ))
 }
 
 const enableProvider = (event, provider) => {
@@ -56,6 +65,7 @@ const disableAllProviders = (event) => {
 module.exports = {
   torrentRequest,
   magnetRequest,
+  getEnabledProviders,
   enableProvider,
   disableProvider,
   disableAllProviders

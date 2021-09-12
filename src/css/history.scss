@@ -1,0 +1,15 @@
+@import './colors';
+
+.history-main {
+  height: calc(100% - 60px);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+.history-items {
+  display: flex;
+  flex-direction: column-reverse;
+  margin-left: 20px;
+  margin-top: 10px;
+}

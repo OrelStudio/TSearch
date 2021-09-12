@@ -10,9 +10,11 @@ import '../../css/main.scss'
 import Torrent from '../../ipcRenderer/torrent.js'
 
 const App = props => {
+  Torrent.setNavigation([{'path': '/', 'name': 'Home'}])
+
   return (
     <div className={'main-page'}>
-      
+
       <div className={'main-content'}>
         <div>
           <div className={'logo-area'}>

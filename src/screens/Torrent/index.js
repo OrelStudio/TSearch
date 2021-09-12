@@ -17,8 +17,12 @@ const TorrentPage = props => {
   const torrentObj = queryString.parse(torrent)
   const { searchValue } = useParams()
 
-  const tabs = useMemo(() => [{'path': '/', 'name': 'Home'}, {'path': `/search/${searchValue}`, 'name': searchValue}], [searchValue])
   const current = torrentObj.title
+  const tabs = useMemo(() => {
+    let tabValue = [{'path': '/', 'name': 'Home'}, {'path': `/search/${searchValue}`, 'name': searchValue}]
+    Torrent.setNavigation(tabValue.concat([{'path': `/torrent/${current}`, 'name': current}]))
+    return tabValue
+  }, [searchValue])
 
   const [magnet, setMagnet] = useState('')
   const [firstTime, setFirstTime] = useState(true)

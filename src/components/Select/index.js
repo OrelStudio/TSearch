@@ -7,21 +7,27 @@ import '../../css/main.scss'
 
 const Selector = props => {
   const [selectedOption, setSelectedOption] = useState(null)
-  const [firstTime, setFirstTime] = useState(true)
 
-  if(firstTime) {
-    setSelectedOption(Torrent.getSelectedProviders())
-    setFirstTime(false)
+  useEffect(() => {
+    Torrent.getEnabledProviders()
+  }, [])
+
+  const setData = (event, data) => {
+    setSelectedOption(data)
   }
 
   useEffect(() => {
     ipcRenderer.on('torrent:enable:response', Torrent.onEnableProvider)
     ipcRenderer.on('torrent:disable:response', Torrent.onDisableProvider)
     ipcRenderer.on('torrent:disable:all:response', Torrent.onDisableAllProviders)
+
+    ipcRenderer.on('torrent:providers:response', setData)
     return () => {
       ipcRenderer.removeListener('torrent:enable:response', Torrent.onEnableProvider)
       ipcRenderer.removeListener('torrent:disable:response', Torrent.onDisableProvider)
       ipcRenderer.removeListener('torrent:disable:all:response', Torrent.onDisableAllProviders)
+
+      ipcRenderer.removeListener('torrent:providers:response', setData)
     }
   })
 
