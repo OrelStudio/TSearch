@@ -38,9 +38,12 @@ html, body {
 }
 .download:hover {
   color: #C4D9F3;
-  background-color: #798EA5;
+  background-color: #6b7c90;
 }
 .download:active {
   color: #C4D9F3;
   background-color: #34495E;
+}
+.download-button {
+  text-decoration: none;
 }
