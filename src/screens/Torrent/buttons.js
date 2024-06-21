@@ -1,24 +1,42 @@
-import React, { useCallback } from 'react'
+import React from 'react'
 import { Button } from 'antd'
 import { DownloadOutlined, LinkOutlined } from '@ant-design/icons'
-import Torrent from '../../ipcRenderer/torrent.js'
-import electron from 'electron'
+import useTorrentStore from '../../useTorrentStore'
 
 const DownloadButtons = props => {
-  const handleDownload = useCallback(() => {
-    Torrent.download({magnet: props.magnet, title: props.title, size: props.size})
-  }, [props.magnet])
+  const download = useTorrentStore(state => state.download)
 
-  const magnetHandler = useCallback(() => {
-    electron.shell.openExternal(props.magnet)
-  }, [props.magnet])
+  const handleDownload = () => {
+    download({magnet: props.magnet, title: props.title, size: props.size})
+  }
 
   return (
     <>
-      <Button onClick={handleDownload} type={'primary'} icon={<DownloadOutlined />} size={'large'}>
+      <Button onClick={handleDownload}
+        type={'primary'} icon={
+          <div className='icon'>
+            <div id='down-1'>
+              <DownloadOutlined style={{fontSize: '24px', strokeWidth: 45, stroke: 'white'}} />
+            </div>
+            <div id='down-2'>
+              <DownloadOutlined style={{fontSize: '24px', strokeWidth: 45, stroke: 'white'}} />
+            </div>
+          </div>
+        } size={'large'}>
         <span>{'Download'}</span>
       </Button>
-      <Button onClick={magnetHandler} type='primary' icon={<LinkOutlined />} size={'large'}>
+      <Button
+        type='primary'
+        icon={
+          <div className='icon'>
+            <div id='down-1'>
+              <LinkOutlined style={{fontSize: '24px', strokeWidth: 30, stroke: 'white'}} />
+            </div>
+            <div id='down-2'>
+              <LinkOutlined style={{fontSize: '24px', strokeWidth: 30, stroke: 'white'}} />
+            </div>
+          </div>
+        } size={'large'}>
         <span>{'Magnet'}</span>
       </Button>
     </>

@@ -2,7 +2,7 @@ import React, { useEffect, useState, useMemo } from 'react'
 import { useParams } from 'react-router-dom'
 import queryString from 'query-string'
 import { ipcRenderer } from 'electron'
-import Torrent from '../../ipcRenderer/torrent.js'
+import useTorrentStore from '../../useTorrentStore'
 import Selector from '../../components/Select'
 import Search from '../../components/Search'
 import Navigation from '../../components/Navigation'
@@ -17,21 +17,18 @@ const TorrentPage = props => {
   const torrentObj = queryString.parse(torrent)
   const { searchValue } = useParams()
 
+  const getMagnet = useTorrentStore(state => state.getMagnet)
+  const onDownload = useTorrentStore(state => state.onDownload)
+
+  const tabs = useMemo(() => [{'path': '/', 'name': 'Home'}, {'path': `/search/${searchValue}`, 'name': searchValue}], [searchValue])
   const current = torrentObj.title
-  const tabs = useMemo(() => {
-    let tabValue = [{'path': '/', 'name': 'Home'}, {'path': `/search/${searchValue}`, 'name': searchValue}]
-    Torrent.setNavigation(tabValue.concat([{'path': `/torrent/${current}`, 'name': current}]))
-    return tabValue
-  }, [searchValue])
 
   const [magnet, setMagnet] = useState('')
-  const [firstTime, setFirstTime] = useState(true)
   const [loaded, setLoaded] = useState(false)
 
-  if(firstTime) {
-    Torrent.getMagnet(torrentObj)
-    setFirstTime(false)
-  }
+  useEffect(() => {
+    getMagnet(torrentObj)
+  }, [])
 
   const onMagnetResponse = (event, magnet) => {
     Cons.log('onMagnetResponse', magnet)
@@ -41,10 +38,10 @@ const TorrentPage = props => {
 
   useEffect(() => {
     ipcRenderer.on('magnet:response', onMagnetResponse)
-    ipcRenderer.on('magnet:download:response', Torrent.onDownload)
+    ipcRenderer.on('magnet:download:response', onDownload)
     return () => {
       ipcRenderer.removeListener('magnet:response', onMagnetResponse)
-      ipcRenderer.removeListener('magnet:download:response', Torrent.onDownload)
+      ipcRenderer.removeListener('magnet:download:response', onDownload)
     }
   })
 

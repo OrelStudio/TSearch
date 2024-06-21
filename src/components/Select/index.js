@@ -1,48 +1,54 @@
-import React , { useState, useEffect } from 'react';
+import React , { useState, useEffect, useMemo } from 'react';
 import { ipcRenderer } from 'electron'
 import SelectProviders from './select'
 
-import Torrent from '../../ipcRenderer/torrent.js'
+import useTorrentStore from '../../useTorrentStore'
 import '../../css/main.scss'
 
 const Selector = props => {
   const [selectedOption, setSelectedOption] = useState(null)
+  const selectedProviders = useTorrentStore(state => state.selectedProviders)
+
+  const setCanSearch = useTorrentStore(state => state.setCanSearch)
+  const enableProvider = useTorrentStore(state => state.enableProvider)
+  const disableProvider = useTorrentStore(state => state.disableProvider)
+  const disableAllProviders = useTorrentStore(state => state.disableAllProviders)
+  const setSelectedProviders = useTorrentStore(state => state.setSelectedProviders)
+
+
+  
+  // events
+  const onEnableProvider = useTorrentStore(state => state.onEnableProvider)
+  const onDisableProvider = useTorrentStore(state => state.onDisableProvider)
+  const onDisableAllProviders = useTorrentStore(state => state.onDisableAllProviders)
 
   useEffect(() => {
-    Torrent.getEnabledProviders()
+    setSelectedOption(selectedProviders)
   }, [])
 
-  const setData = (event, data) => {
-    setSelectedOption(data)
-  }
-
   useEffect(() => {
-    ipcRenderer.on('torrent:enable:response', Torrent.onEnableProvider)
-    ipcRenderer.on('torrent:disable:response', Torrent.onDisableProvider)
-    ipcRenderer.on('torrent:disable:all:response', Torrent.onDisableAllProviders)
-
-    ipcRenderer.on('torrent:providers:response', setData)
+    ipcRenderer.on('torrent:enable:response', onEnableProvider)
+    ipcRenderer.on('torrent:disable:response', onDisableProvider)
+    ipcRenderer.on('torrent:disable:all:response', onDisableAllProviders)
     return () => {
-      ipcRenderer.removeListener('torrent:enable:response', Torrent.onEnableProvider)
-      ipcRenderer.removeListener('torrent:disable:response', Torrent.onDisableProvider)
-      ipcRenderer.removeListener('torrent:disable:all:response', Torrent.onDisableAllProviders)
-
-      ipcRenderer.removeListener('torrent:providers:response', setData)
+      ipcRenderer.removeListener('torrent:enable:response', onEnableProvider)
+      ipcRenderer.removeListener('torrent:disable:response', onDisableProvider)
+      ipcRenderer.removeListener('torrent:disable:all:response', onDisableAllProviders)
     }
   })
 
-  const options = [
-      { value: 'Torrent9', label: 'Torrent9' },
-      { value: 'Torrentz2', label: 'Torrentz2' },
-      { value: '1337x', label: '1337x' },
-      { value: 'ThePirateBay', label: 'ThePirateBay' },
-      { value: 'KickassTorrents', label: 'KickassTorrents' },
-      { value: 'Rarbg', label: 'Rarbg' },
-      { value: 'TorrentProject', label: 'TorrentProject' },
-      { value: 'Yts', label: 'Yts' },
-      { value: 'Limetorrents', label: 'Limetorrents' },
-      { value: 'Eztv', label: 'Eztv' }
-  ];
+  const options = useMemo(() => [
+    { value: 'Torrent9', label: 'Torrent9' },
+    { value: 'Torrentz2', label: 'Torrentz2' },
+    { value: '1337x', label: '1337x' },
+    { value: 'ThePirateBay', label: 'ThePirateBay' },
+    { value: 'KickassTorrents', label: 'KickassTorrents' },
+    { value: 'Rarbg', label: 'Rarbg' },
+    { value: 'TorrentProject', label: 'TorrentProject' },
+    { value: 'Yts', label: 'Yts' },
+    { value: 'Limetorrents', label: 'Limetorrents' },
+    { value: 'Eztv', label: 'Eztv' }
+  ], [])
 
   const checkDifference = (firstArray, secondArray) => {
     let isAdded = true
@@ -52,16 +58,16 @@ const Selector = props => {
       res = secondArray.filter(provider => !firstArray.includes(provider))
     }
     if(isAdded) {
-      Torrent.setSearch(true)
-      Torrent.enableProvider(res[0])
+      setCanSearch(true)
+      enableProvider(res[0])
     } else if(res.length > 1) {
-      Torrent.setSearch(false)
-      Torrent.disableAllProviders()
+      setCanSearch(false)
+      disableAllProviders()
     } else {
       if(selectedOption.length === 1) {
-        Torrent.setSearch(false)
+        setCanSearch(false)
       }
-      Torrent.disableProvider(res[0])
+      disableProvider(res[0])
     }
   }
 
@@ -69,10 +75,10 @@ const Selector = props => {
     if(selectedOption) {
       checkDifference(value, selectedOption)
     } else {
-      Torrent.setSearch(true)
-      Torrent.enableProvider(value[0])
+      setCanSearch(true)
+      enableProvider(value[0])
     }
-    Torrent.setSelectedProviders(value)
+    setSelectedProviders(value)
     setSelectedOption(value)
   }
 

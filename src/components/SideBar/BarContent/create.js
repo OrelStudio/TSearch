@@ -2,8 +2,7 @@ import React, {useState} from 'react'
 import classNames from 'classnames'
 import ItemTemplate from './template'
 
-const createItem = (Component = null) => {
-
+const createItem = Component => {
   const NewItem = props => {
     const [isInside, setInside] = useState(false)
     const Outlined = props.outlined
@@ -20,7 +19,7 @@ const createItem = (Component = null) => {
         <ItemTemplate isOpen={props.isOpen}>
           <div className={'icon-text'} onMouseEnter={enterHandler}>{props.itemCategory}</div>
           <Outlined style={{ fontSize: '33px', color: '#ffffff' }} className={'queue-icon'} onMouseEnter={enterHandler} />
-          {Component !== null ? <Component /> : null}
+          <Component />
         </ItemTemplate>
       </div>
     )

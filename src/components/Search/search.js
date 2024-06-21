@@ -4,8 +4,8 @@ import { Input, Button } from 'antd'
 const SearchButtons = props => {
   return (
     <>
-      <Input placeholder='Search...' onPressEnter={props.searchHandler} ref={props.refVar} />
-      <Button onClick={props.searchHandler} type='primary'>{'TSearch'}</Button>
+      <Input.Search placeholder='Search...' className='search' onPressEnter={props.searchHandler} onSearch={props.searchHandler} ref={props.refVar} enterButton='Search' size='large' allowClear bordered/>
+      {/* <Button onClick={props.searchHandler} type='primary'>{'TSearch'}</Button> */}
     </>
   )
 }

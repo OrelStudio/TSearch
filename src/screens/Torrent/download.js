@@ -10,10 +10,10 @@ const DownloadSection = props => {
       <div className={'download-title'}>
         <span>{torrent.title}</span>
       </div>
+      <Info torrent={torrent} />
       <div className={'download-section'}>
         <DownloadButtons magnet={props.magnet} title={torrent.title} size={torrent.size} />
       </div>
-      <Info torrent={torrent} />
     </div>
   )
 }

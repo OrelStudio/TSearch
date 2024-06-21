@@ -1,17 +1,18 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import { ipcRenderer } from 'electron'
-import Torrent from '../../ipcRenderer/torrent.js'
+import useTorrentStore from '../../useTorrentStore'
 import ResultsItem from '../../components/ResultsItem'
+import ResultSkeleton from '../../components/ResultsItem/ResultSkeleton'
 
 const resultsContent = searchValue => {
   const [data, setData] = useState([])
   const [loaded, setLoaded] = useState(false)
-  const [firstTime, setFirstTime] = useState(true)
 
-  if(firstTime) {
-    Torrent.getData(searchValue)
-    setFirstTime(false)
-  }
+  const getData = useTorrentStore(state => state.getData)
+
+  useEffect(() => {
+    getData(searchValue)
+  }, [])
 
   // The component
   const Content = props => {
@@ -42,7 +43,13 @@ const resultsContent = searchValue => {
             )}
             {data.length === 0 ? (<h1>{'No Results, maybe try other providers.'}</h1>) : null}
           </div>
-        ) : <h1>Loading</h1>}
+        ) : (
+          <div className='results-items'>
+            {[...Array(10)].map((e, i) => {
+              return <ResultSkeleton key={i} />
+            })}
+          </div>
+        )}
       </>
     )
   }

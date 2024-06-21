@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { ipcRenderer } from 'electron'
-import Torrent from '../../../../ipcRenderer/torrent.js'
+import useTorrentStore from '../../../../useTorrentStore'
 import QueueItem from './item'
 import { motion } from 'framer-motion'
 
@@ -8,17 +8,19 @@ import '../../../../css/sidebar/queue.scss'
 
 const Queue = props => {
   const [queue, setQueue] = useState([])
-  const [firstTime, setFirstTime] = useState(true)
   const queueAnimate = { opacity: props.isInside ? 1 : 0}
+  const storedQueue = useTorrentStore(state => state.queue)
 
-  if(firstTime) {
-    setQueue(Torrent.getQueue())
-    setFirstTime(false)
-  }
+  const setStoreQueue = useTorrentStore(state => state.setQueue)
+
+
+  useEffect(() => {
+    setQueue(storedQueue)
+  }, [])
 
   const addToQueue = (event, item) => {
     setQueue(queue => {
-      Torrent.setQueue(queue.concat(item))
+      setStoreQueue(queue.concat(item))
       return queue.concat(item)
     })
   }
@@ -35,7 +37,7 @@ const Queue = props => {
             return item
           }
         })
-        Torrent.setQueue(newQueue)
+        setStoreQueue(newQueue)
 
         return newQueue
       })
@@ -45,7 +47,7 @@ const Queue = props => {
   const removeFromQueue = (event, magnet) => {
     setQueue(queue => {
       const newQueue = queue.filter(item => item.magnet !== magnet)
-      Torrent.setQueue(newQueue)
+      setStoreQueue(newQueue)
 
       return newQueue
     })

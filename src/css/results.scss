@@ -3,8 +3,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap');
 
 .results-main {
-  height: calc(100% - 60px);
+  // height: 100%;
   width: 100%;
+  height: calc(100% - 60px);
   display: flex;
   overflow: auto;
   flex-direction: column;
@@ -28,6 +29,9 @@
   margin-left: 20px;
 }
 .item {
+  position: relative;
+  z-index: 1;
+  $border-width: 2px;
   height: auto;
   width: 40%;
   background-color: $itemColor;
@@ -35,9 +39,78 @@
   border-radius: 5px;
   margin-bottom: 20px;
   box-shadow: -5px -3px 5px rgba(130, 130, 130, 0.1), 3px 5px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.5s;
+  border: 1px solid #000000;
+  transform-style: preserve-3d;
+  &::after {
+    content: '';
+    position: absolute;
+    transform: translateZ(-1px);
+    top: calc(-1 * #{$border-width});
+    left: calc(-1 * #{$border-width});
+    z-index: -1;
+    width: calc(100% + #{$border-width} * 2);
+    height: calc(100% + #{$border-width} * 2);
+    border-radius: 5px;
+    background: linear-gradient(
+      60deg,
+      hsl(224, 85%, 66%),
+      hsl(269, 85%, 66%),
+      hsl(314, 85%, 66%),
+      hsl(359, 85%, 66%),
+      hsl(44, 85%, 66%),
+      hsl(89, 85%, 66%),
+      hsl(134, 85%, 66%),
+      hsl(179, 85%, 66%)
+    );
+    background-size: 300% 300%;
+    background-position: 0 50%;
+    border-radius: calc(2 * var($border-width));
+    animation: moveGradient 4s alternate infinite;
+    animation-play-state: paused;
+    opacity: 0;
+    transition: all 0.5s;
+  }
 }
+@keyframes moveGradient {
+  0% {
+    transform: scale(1.01);
+    transform: translateZ(-1px);
+  }
+  20% {
+    transform: scale(1.05);
+    transform: translateZ(-1px);
+  }
+  40% {
+    transform: scale(1.01);
+    transform: translateZ(-1px);
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  60% {
+    transform: scale(1.05);
+    transform: translateZ(-1px);
+  }
+  80% {
+    transform: scale(1.01);
+    transform: translateZ(-1px);
+  }
+  100% {
+    transform: scale(1.05);
+    transform: translateZ(-1px);
+  }
+}
+
 .item:hover {
   background-color: $itemHoverColor;
+  border: 0;
+  transform: scale(1.01);
+  
+  &::after {
+    animation-play-state: running;
+    opacity: 1;
+  }
 }
 .item:active {
   background-color: $itemActiveColor;
@@ -47,6 +120,7 @@
   height: 100%;
   width: 100%;
   padding: 2.5px 0 9px 15px;
+  transition: all 0.5s;
 }
 .item-text:hover {
   color: $itemTextHoverColor;
@@ -69,4 +143,42 @@
 }
 .item-info * {
   margin-right: 10px;
+}
+.item-skeleton {
+  // position: relative;
+  z-index: 1;
+  $border-width: 2px;
+  height: auto;
+  width: 40%;
+  background-color: $itemColor;
+  overflow-wrap: break-word;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  box-shadow: -5px -3px 5px rgba(130, 130, 130, 0.1), 3px 5px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.5s;
+  border: 1px solid #000000;
+  transform-style: preserve-3d;
+}
+.item-text-skeleton {
+  color: $itemTextColor;
+  height: 72px;
+  width: 100%;
+  padding: 2.5px 0 9px 15px;
+}
+.item-title-skeleton {
+  font-size: 20px;
+  margin-left: 18px;
+  font-family: 'Oswald', sans-serif;
+  height: 70px;
+}
+.ant-skeleton {
+  width: 100%;
+  height: 70px;
+}
+.ant-skeleton-title {
+  margin-top: 11px !important; 
+}
+.ant-skeleton-paragraph {
+  margin-top: 15px !important;
+  margin-bottom: 0 !important;
 }
