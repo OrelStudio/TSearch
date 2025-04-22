@@ -6,6 +6,7 @@ const { getHistory, addItem } = require('../history')
 const { addToQueue, updateQueueItem, removeFromQueue} = require('./queue')
 const Logger = require('../../src/logger/electronCon.js')
 const WebTorrent = require('webtorrent-hybrid')
+const {debounce} = require('lodash')
 
 const client = new WebTorrent()
 const Cons = new Logger('ipcMain')

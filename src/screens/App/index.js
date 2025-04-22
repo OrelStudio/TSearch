@@ -1,11 +1,6 @@
-import React, { useRef, useEffect } from 'react'
-// import TorrentSearchApi from 'torrent-search-api'
-import Logger from '../../logger'
-import { ipcRenderer } from 'electron'
-import { Button } from 'antd';
+import React from 'react'
 import Selector from '../../components/Select'
 import Search from '../../components/Search'
-import SideBar from '../../components/SideBar'
 import '../../css/main.scss'
 
 const App = props => {
@@ -19,7 +14,7 @@ const App = props => {
           </div>
           <div className={'content'}>
             <div className={'main-wrapper'}>
-            <div className={'search-wrapper'}>
+              <div className={'search-wrapper'}>
                 <Search />
               </div>
               <Selector/>

@@ -5,4 +5,7 @@ node_modules
 dist
 build
 
+# Ignore all directories starting with "TSearch"
+TSearch*/
+
 package-lock.json

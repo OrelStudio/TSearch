@@ -11,11 +11,11 @@
     "start:web": "npx cross-env TARGET=web npm run start:dev",
     "start:dev": "npx cross-env NODE_ENV=development npx webpack-dev-server --config ./config/webpack/index.js --dev",
     "start:prod": "npx cross-env NODE_ENV=production npx webpack --config ./config/webpack/index.js",
-    "pack:win": "npx electron-packager . TSearch --platform=win32 --asar --overwrite --icon ./resources/icon.png",
-    "pack:mac": "npx electron-packager . TSearch --platform=darwin --asar --overwrite --icon ./resources/icon.png",
+    "pack:win": "npx electron-packager . TSearch --platform=win32 --asar --overwrite --icon ./resources/icon.ico",
+    "pack:mac": "npx electron-packager . TSearch --platform=darwin --asar --overwrite --icon ./resources/icon.ico",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Moti Shriki, Koby Bass, Orel Shriki",
+  "author": "Orel Shriki",
   "license": "GPL-3.0",
   "devDependencies": {
     "@babel/cli": "^7.13.10",
